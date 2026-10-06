@@ -184,7 +184,19 @@ ctx.effect(
 可以。`text` 完全自定义，写你要的那句即可。
 
 **Q：同一个 profile 装两次会怎样？**
-段名是固定的（`lang:thinking-language`），请只装一次；重复注册可能触发注册表冲突。
+**不要这么干。** `systemPrompt` 把段名当**唯一键**，同名重复注册会被直接拒绝并抛错：
+
+```
+prompt section "lang:thinking-language" is already registered
+```
+
+既不会静默覆盖，也不会叠加成两段。想换语言请**覆盖同 id 的 `config`**（见上文
+[配置](#配置)），而不是再装一份。
+
+**Q：改了配置 / 卸载了插件，为什么提示词里还留着旧的那段？**
+`systemPrompt` 服务只有 `section()`，**没有移除 API**；一段文本的生命周期由注册它的
+fiber 决定。所以配置变更或卸载之后，**重启该实例**才会彻底干净。重启后一切都按
+当前的 `bundles` + `cordis.patch.yml` 重新装配，不会留下残留。
 
 ---
 
