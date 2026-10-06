@@ -1,0 +1,18 @@
+# dsh-thinking-language — bundle patch layer.
+#
+# 本文件是「bundle 声明」：DSH 装配 profile 时，会把这一层叠加到 profile 树上。
+# insert 一行语言约束插件；插件自身的默认值（简体中文、order -900）在
+# lib/index.js 里，这里不必重复。
+#
+# 想改语言/顺序/段名：不要在库里改本文件，改你 **profile** 的
+# cordis.patch.yml —— 同 id 条目按完整替换语义覆盖，例如：
+#
+#   - id: thinking-language
+#     name: dsh-thinking-language
+#     config:
+#       language: ja
+#
+# 详见 examples/profile-override.cordis.patch.yml
+- insert:
+    - id: thinking-language
+      name: dsh-thinking-language
